@@ -4,6 +4,7 @@ use diesel::prelude::*;
 use dotenvy::dotenv;
 use std::env;
 
+// Helper function for calculating left boundary of SQL queries
 fn left_bound(x: i8) -> i8 {
     if x < 0 {
         0
@@ -12,6 +13,7 @@ fn left_bound(x: i8) -> i8 {
     }
 }
 
+// Helper function for calculatin right boundary of SQL queries
 fn right_bound(x: i8) -> i8 {
    if x > 0 {
        0
@@ -21,6 +23,7 @@ fn right_bound(x: i8) -> i8 {
 }
 
 
+// Returns a connection to the MySQL database
 fn get_connection() -> MysqlConnection {
     dotenv().ok();
 
@@ -29,6 +32,7 @@ fn get_connection() -> MysqlConnection {
         .unwrap_or_else(|_| panic!("Error connecting to {}", db_url))
 }
 
+// Returns a Vec of Track objects
 pub fn get_tracks(limit: Option<i64>) -> Vec<models::Track> {
    use crate::schema::Track::dsl::*;
    let lim = limit.unwrap_or(25);
@@ -41,6 +45,8 @@ pub fn get_tracks(limit: Option<i64>) -> Vec<models::Track> {
        .expect("Error loading tracks")
 }
 
+// Returns a Vec of Track objects filtered such that all columns are within the ranges calculated
+// from the fields of the survey_response parameter
 pub fn get_curated_tracks(survey_response: &models::SurveyResponse, limit: Option<i64>) -> Vec<models::Track> {
     use crate::schema::Track::dsl::*;
     let conn = &mut get_connection();
@@ -59,6 +65,8 @@ pub fn get_curated_tracks(survey_response: &models::SurveyResponse, limit: Optio
         .expect("Error loading curated tracks")
 }
 
+// Gets Tracks using get_curated_tracks, then displays the tracks along with some basic statistics
+// from the collection of Tracks
 pub fn analytics(survey_response: &models::SurveyResponse, limit: Option<i64>) {
     let res = get_curated_tracks(survey_response,limit);
     let len = res.len() as i32;

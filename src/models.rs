@@ -1,6 +1,6 @@
 use diesel::prelude::*;
 
-
+// Track is used to instantiate Track objects
 #[derive(Debug, Queryable, Selectable)]
 #[diesel(table_name = crate::schema::Track)]
 #[diesel(check_for_backend(diesel::mysql::Mysql))]
@@ -22,6 +22,7 @@ pub struct Track {
     pub speechiness: Option<i8>,
 }
 
+// SurveyResponse is used to store user responses to the musical taste survey
 pub struct SurveyResponse {
     pub danceability: i8,
     pub valence: i8,
