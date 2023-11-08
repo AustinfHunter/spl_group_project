@@ -1,7 +1,8 @@
 use diesel::prelude::*;
+use serde::{Serialize,Deserialize};
 
 // Track is used to instantiate Track objects
-#[derive(Debug, Queryable, Selectable)]
+#[derive(Debug, Queryable, Selectable, Serialize, Deserialize)]
 #[diesel(table_name = crate::schema::Track)]
 #[diesel(check_for_backend(diesel::mysql::Mysql))]
 pub struct Track {
@@ -16,6 +17,7 @@ pub struct Track {
     pub bpm: Option<i16>,
     pub danceability: Option<i8>,
     pub valence: Option<i8>,
+    pub energy: Option<i8>,
     pub acousticness: Option<i8>,
     pub instrumentalness: Option<i8>,
     pub liveness: Option<i8>,
@@ -26,6 +28,7 @@ pub struct Track {
 pub struct SurveyResponse {
     pub danceability: i8,
     pub valence: i8,
+    pub energy: i8,
     pub acousticness: i8,
     pub instrumentalness: i8,
     pub liveness: i8,
@@ -33,7 +36,7 @@ pub struct SurveyResponse {
 }
 
 impl SurveyResponse {
-    pub fn new(danceability: i8, valence: i8, acousticness: i8, instrumentalness: i8, liveness: i8, speechiness: i8) -> SurveyResponse {
-        SurveyResponse{danceability,valence,acousticness,instrumentalness,liveness,speechiness}
+    pub fn new(danceability: i8, valence: i8, energy: i8, acousticness: i8, instrumentalness: i8, liveness: i8, speechiness: i8) -> SurveyResponse {
+        SurveyResponse{danceability,valence,energy,acousticness,instrumentalness,liveness,speechiness}
     }
 }
