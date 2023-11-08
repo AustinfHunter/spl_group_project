@@ -1,5 +1,7 @@
 CREATE DATABASE IF NOT EXISTS SplProject;
 
+USE SplProject;
+
 CREATE TABLE IF NOT EXISTS Track (
   ID int NOT NULL AUTO_INCREMENT,
   track_name varchar(250) DEFAULT NULL,

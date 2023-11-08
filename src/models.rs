@@ -24,7 +24,27 @@ pub struct Track {
     pub speechiness: Option<i8>,
 }
 
-// SurveyResponse is used to store user responses to the musical taste survey
+#[derive(Debug, Serialize, Deserialize)]
+pub struct TrackInsert {
+    pub track_name: String,
+    pub artist_name: String,
+    pub artist_count: i8,
+    pub release_year: i16,
+    pub release_month: i8,
+    pub release_day: i8,
+    pub streams: i64,
+    pub bpm: i16,
+    pub danceability: i8,
+    pub valence: i8,
+    pub energy: i8,
+    pub acousticness: i8,
+    pub instrumentalness: i8,
+    pub liveness: i8,
+    pub speechiness: i8,
+}
+
+
+//SurveyResponse is used to store user responses to the musical taste survey
 pub struct SurveyResponse {
     pub danceability: i8,
     pub valence: i8,
