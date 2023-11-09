@@ -1,3 +1,4 @@
+#[macro_use] extern crate rocket;
 mod models;
 mod schema;
 mod data;
@@ -5,6 +6,7 @@ mod setup;
 use std::env;
 use dotenvy::dotenv;
 use mysql::*;
+use rocket::fs::{FileServer, relative};
 
 fn handle_setup(args: Vec<String>) {
  if args.len() > 1 && args[1] == "setup" {
@@ -25,7 +27,11 @@ fn handle_setup(args: Vec<String>) {
  return;
 }
 
-fn main() {
+#[launch]
+fn rocket() -> _ {
     let args: Vec<String> = env::args().collect();
     handle_setup(args);
+    rocket::build()
+    .mount("/", FileServer::from(relative!("templates")))
+    .mount("/img", FileServer::from(relative!("static/Images")).rank(0))
 }
