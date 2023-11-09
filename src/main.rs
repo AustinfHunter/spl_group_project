@@ -20,12 +20,12 @@ fn handle_setup(args: Vec<String>) {
         panic!("Error setting up database: {}", res.unwrap());
         }
     }
+    data::analytics(&models::SurveyResponse::new(0,0,0,0,0,0,0),Some(1000));
+    data::result_distribution(1000, Some(1000));
  return;
 }
 
 fn main() {
     let args: Vec<String> = env::args().collect();
     handle_setup(args);
-    data::analytics(&models::SurveyResponse::new(0,0,0,0,0,0,0),Some(1000));
-    data::result_distribution(1000, Some(1000));
 }
