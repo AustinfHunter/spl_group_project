@@ -75,17 +75,17 @@ pub fn analytics(survey_response: &models::SurveyResponse, limit: Option<i64>) {
     let (mut dance,mut val,mut ener,mut acoust,mut instrum,mut live,mut speech,mut bpm) : (i32,i32,i32,i32,i32,i32,i32,i32) = (0,0,0,0,0,0,0,0);
     println!("Displaying {} tracks\n---------------", res.len());
     for track in res {
-        println!("Artist: {}", track.artist_name.unwrap());
-        println!("Track Name: {}", track.track_name.unwrap());
-        println!("Streams: {}\n", track.streams.unwrap());
-        dance += track.danceability.unwrap_or(0) as i32;
-        val += track.valence.unwrap_or(0) as i32;
-        ener += track.energy.unwrap_or(0) as i32;
-        acoust += track.acousticness.unwrap_or(0) as i32;
-        live += track.liveness.unwrap_or(0) as i32;
-        instrum += track.instrumentalness.unwrap_or(0) as i32;
-        speech += track.speechiness.unwrap_or(0) as i32;
-        bpm += track.bpm.unwrap_or(0) as i32;
+        println!("Artist: {}", track.artist_name);
+        println!("Track Name: {}", track.track_name);
+        println!("Streams: {}\n", track.streams);
+        dance += track.danceability as i32;
+        val += track.valence as i32;
+        ener += track.energy as i32;
+        acoust += track.acousticness as i32;
+        live += track.liveness as i32;
+        instrum += track.instrumentalness as i32;
+        speech += track.speechiness as i32;
+        bpm += track.bpm as i32;
 
     }
     println!("---------------");

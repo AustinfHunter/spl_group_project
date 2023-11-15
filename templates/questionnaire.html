@@ -1,0 +1,52 @@
+{% extends "index.html" %}
+{% block head %}
+<style>
+.quest-form-container{
+	width: 100%;
+	width: 100%;
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+}
+
+.question-form {
+	width: 75%;
+	margin-right: 5%;
+	margin-left: 5%;
+}
+
+.quest-form-fieldset {
+	width: 100%;
+	margin-top: .2rem;
+	margin-bottom: 1rem;
+	display: flex;
+	gap: 0.5rem;
+}
+
+.quest-form-container form fieldset input label {
+	float: top;
+	margin-right: 0.1rem;
+
+}
+
+</style>
+{% endblock head %}
+{% block content %}
+<h2>Music Taste Questionnaire</h2>
+<p>Answer this short questionnaire to recieve a curated list of songs from the top spotify charts suited to your taste</P>
+<div class="quest-form-container">
+	<form class="quest-form" action="/questionnaire" method="POST">  
+		{% for question in questions %}
+		<label for="{{question.name}}" class="radio-inline control-label">{{question.value}}</label>
+		<fieldset id={{question.name}} class="quest-form-fieldset">
+			<input type="radio" class="form-check-input" value="-2" name="{{question.name}}"><label>Strongly Disagree</label></input>
+			<input type="radio" class="form-check-input" value="-1" name="{{question.name}}"><label>Disagree</label></input>
+			<input type="radio" class="form-check-input" value="0" name="{{question.name}}" checked><label>Don't Care</label></input>
+			<input type="radio" class="form-check-input" value="1" name="{{question.name}}"><label>Agree</label></input>
+			<input type="radio" class="form-check-input" value="2" name="{{question.name}}"><label>Strongly Agree</label></input>
+		</fieldset>
+		{% endfor %}
+		<button>Submit Answers</button>
+	</form>
+</div>
+{% endblock content %}

@@ -1,0 +1,43 @@
+{% extends "index.html" %}
+{% block head %}
+<style>
+.container{
+	width: 80%;
+	margin-right: 10%;
+}
+</style>
+{% endblock head %}
+{% block content %}
+{% if tracks.len() == 0 %}
+<div class="container">
+	<h2> Uh-oh </h2>
+	<p>
+	Looks like your music taste is too cool and obscure. None of the top streamed songs on spotify are suited to your taste, 
+	now you can proudly say "I don't really listen to anything mainstream" when people ask you about your music taste. People find that really cool!
+	</p>
+	<p>
+	Tip: If you want to try again, consider taking a more neutral stance on liveness, instrumentalness, and speechiness.
+	Very few of the top songs on the spotify charts rate high in these areas, so they are the most likely culprit. 
+	</p>
+	{% else %}
+	<h2> Your Songs </h2>
+	<div>
+		{% for track in tracks %}
+		<div>
+			<h3>{{track.track_name}}</h3>
+			<h4>by {{track.artist_name}}</h4>
+			<ul>
+				<li>Danceability: {{track.danceability}}%</li>
+				<li>Valence: {{track.valence}}%</li>
+				<li>Energy: {{track.energy}}%</li>
+				<li>Acousticness: {{track.acousticness}}%</li>
+				<li>Instrumentalness: {{track.instrumentalness}}%</li>
+				<li>Liveness: {{track.liveness}}%</li>
+				<li>Speechiness: {{track.speechiness}}%</li>
+			</ul>
+		</div>
+		{% endfor %}
+	</div>
+{% endif %}
+</div>
+{% endblock content %}
