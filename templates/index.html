@@ -19,7 +19,26 @@
 		.title-link{
 		text-decoration: none;
 		color: white;
+		position: relative;
 		}
+		/* title horizonal line */
+		.title-link::before,
+		.title-link::after {
+    	content: "";
+    	position: absolute;
+    	height: 2px; 
+    	width: 40%; 
+    	background-color: white; 
+   	 	top: 50%; 
+   		transform: translateY(-50%); /* Adjust to center the line */
+}
+.title-link::before {
+    left: 20px; /* Position the left line */
+}
+.title-link::after {
+    right: 20px; /* Position the right line */
+}
+
 		</style>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
