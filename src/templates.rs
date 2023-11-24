@@ -25,3 +25,10 @@ pub struct QuestionaireTemplate<'a> {
 pub struct ResultListTemplate<'a>{
     pub tracks: &'a Vec<Track>,
 }
+
+
+#[derive(Template)]
+#[template(path = "topTen.html")]
+pub struct TopTenTemplate<'a>{
+    pub tracks: &'a Vec<Track>,
+}

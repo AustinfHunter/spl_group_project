@@ -66,6 +66,19 @@ pub fn get_curated_tracks(survey_response: &models::SurveyResponse, limit: Optio
         .expect("Error loading curated tracks")
 }
 
+pub fn get_top_ten(limit: Option<i64>) -> Vec<models::Track> {
+    use crate::schema::Track::dsl::*;
+    let lim = limit.unwrap_or(25);
+    let conn = &mut get_connection();
+
+    Track
+        .order(streams.desc())
+        .limit(lim)
+        .select(models::Track::as_select())
+        .load(conn)
+        .expect("Error loading tracks")
+}
+
 // Gets Tracks using get_curated_tracks, then displays the tracks along with some basic statistics
 // from the collection of Tracks
 pub fn analytics(survey_response: &models::SurveyResponse, limit: Option<i64>) {
