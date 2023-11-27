@@ -1,6 +1,6 @@
 use askama::Template;
 use rocket::Responder;
-use crate::models::Track;
+use crate::{models::{Track, SurveyResponse}, data::Analytics};
 
 #[derive(Template)]
 #[template(path = "index.html")]
@@ -24,4 +24,10 @@ pub struct QuestionaireTemplate<'a> {
 #[template(path = "results.html")]
 pub struct ResultListTemplate<'a>{
     pub tracks: &'a Vec<Track>,
+}
+
+#[derive(Template)]
+#[template(path = "landing.html")]
+pub struct LandingPageTemplate<'a>{
+    pub analytics: &'a Analytics,
 }

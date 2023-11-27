@@ -1,0 +1,55 @@
+{% extends "index.html" %}
+{% block head %}
+<style> 
+.bar-container {
+	display: flex;
+	flex-direction: column;
+}
+.bar {
+	height: 25px;
+	background-color: #7DDE92;
+}
+</style>
+{% endblock head %}
+{% block content %}
+<div>
+	<h2> Welcome to TopSpot! </h2>
+	<p> 
+	TopSpot can be used to explore the top streamed songs of Spotify (in 2023).
+	You can take our short <a href="/questionnaire">questionnaire</a> to see which of the top streamed songs you might enjoy.
+	</p>
+	<h2>Spotify's song stats</h2>
+	<p>
+	Spotify uses "song stats" to break a song down into quantifiable metrics that could be relevant to a listeners taste.
+	The stats used in this project are as follows:
+	<ul>
+		<li><b>Danceability:</b><br> Describes how suitable a track is for dancing.</li>
+		<li><b>Valence:</b><br> Describes how suitable a track is for dancing.</li>
+		<li><b>Energy:</b><br> Describes how suitable a track is for dancing.</li>
+		<li><b>Acousticness:</b><br> Describes how suitable a track is for dancing.</li>
+		<li><b>Instrumentalness:</b><br> Describes how suitable a track is for dancing.</li>
+		<li><b>Liveness:</b><br> Describes how suitable a track is for dancing.</li>
+		<li><b>Speechiness:</b><br> Describes how suitable a track is for dancing.</li>
+	</ul>
+	<h2>The Data</h2>
+	<p>
+	There are 953 songs in the data set.
+	</p>
+	<div class="bar-container">
+		<b>Danceability:</b>
+		<div class="bar" style="width: {{analytics.danceability}}%;"></div>
+		<b>Valence:</b>
+		<div class="bar" style="width: {{analytics.valence}}%;"></div>
+		<b>Energy:</b>
+		<div class="bar" style="width: {{analytics.energy}}%;"></div>
+		<b>Acousticness:</b>
+		<div class="bar" style="width: {{analytics.acousticness}}%;"></div>
+		<b>Liveness:</b>
+		<div class="bar" style="width: {{analytics.liveness}}%;"></div>
+		<b>Instrumentalness:</b>
+		<div class="bar" style="width: {{analytics.instrumentalness}}%;"></div>
+		<b>Speechiness:</b>
+		<div class="bar" style="width: {{analytics.speechiness}}%;"></div>
+	</div>
+</div>
+{% endblock content %}

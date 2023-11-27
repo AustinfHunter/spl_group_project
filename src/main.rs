@@ -37,7 +37,8 @@ fn handle_setup(args: Vec<String>) {
 
 #[rocket::get("/")]
 fn index() ->  (ContentType, String){
-    let res = templates::IndexTemplate{placeholder: "placeholder from askama"};
+    let surv =  SurveyResponse::new(0, 0, 0, 0, 0, 0, 0);
+    let res = templates::LandingPageTemplate{analytics: &data::get_analytics(&surv, Some(1000))};
     (ContentType::HTML,  res.render().unwrap())
 }
 
