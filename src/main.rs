@@ -5,7 +5,7 @@ mod data;
 mod setup;
 mod templates;
 use std::env;
-use data::get_curated_tracks;
+use data::{get_curated_tracks, get_top_ten, get_random};
 use dotenvy::dotenv;
 use models::SurveyResponse;
 use mysql::*;
@@ -13,7 +13,7 @@ use rocket::form::Form;
 use rocket::fs::{FileServer, relative};
 use rocket::http::ContentType;
 use askama::Template;
-use templates::{IndexTemplate, QuestionaireTemplate, Question, ResultListTemplate};
+use templates::{IndexTemplate, QuestionaireTemplate, Question, ResultListTemplate, TopTenTemplate, RandomTemplate};
 
 fn handle_setup(args: Vec<String>) {
     if args.len() > 1 && args[1] == "setup" {
@@ -73,6 +73,19 @@ fn questionnaire_resp(survey_form: Form<SurveyResponse>) -> rocket::response::co
     rocket::response::content::RawHtml(res.render().unwrap())
 }
 
+#[rocket::get("/")]
+fn top_ten() -> rocket::response::content::RawHtml<String> {
+    let tracks = get_top_ten(Some(10));
+    let res = TopTenTemplate{tracks: &tracks};
+    rocket::response::content::RawHtml(res.render().unwrap())
+}
+
+#[rocket::get("/")]
+fn random_tracks() -> rocket::response::content::RawHtml<String> {
+    let tracks = get_random(Some(25));
+    let res = RandomTemplate{tracks: &tracks};
+    rocket::response::content::RawHtml(res.render().unwrap())
+}
 
 #[launch]
 fn rocket() -> _ {
@@ -84,5 +97,7 @@ fn rocket() -> _ {
     rocket::build()
         .mount("/", rocket::routes![index])
         .mount("/questionnaire", rocket::routes![questionnaire,questionnaire_resp])
+        .mount("/topTen", rocket::routes![top_ten])
+        .mount("/random", rocket::routes![random_tracks])
         .mount("/img", FileServer::from(relative!("static/Images")).rank(0))
 }

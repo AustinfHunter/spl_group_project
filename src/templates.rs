@@ -31,3 +31,15 @@ pub struct ResultListTemplate<'a>{
 pub struct LandingPageTemplate<'a>{
     pub analytics: &'a Analytics,
 }
+
+#[derive(Template)]
+#[template(path = "topTen.html")]
+pub struct TopTenTemplate<'a>{
+    pub tracks: &'a Vec<Track>,
+}
+
+#[derive(Template)]
+#[template(path = "random.html")]
+pub struct RandomTemplate<'a>{
+    pub tracks: &'a Vec<Track>,
+}

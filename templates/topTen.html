@@ -1,0 +1,40 @@
+{% extends "index.html" %}
+{% block head %}
+<style>
+.container{
+	width: 80%;
+	margin-right: 10%;
+}
+</style>
+{% endblock head %}
+{% block content %}
+{% if tracks.len() == 0 %}
+<div class="container">
+	<h2> Uh-oh </h2>
+	<p>
+	Something went wrong!
+    Try reloading the page to see the top 10 songs.
+	</p>
+	{% else %}
+	<h2>Top Songs</h2>
+	<div>
+		{% for track in tracks %}
+		<div>
+			<h3>{{track.track_name}}</h3>
+			<h4>by {{track.artist_name}}</h4>
+			<ul>
+				<li>Streams: {{track.streams}}</li>
+				<li>Danceability: {{track.danceability}}%</li>
+				<li>Valence: {{track.valence}}%</li>
+				<li>Energy: {{track.energy}}%</li>
+				<li>Acousticness: {{track.acousticness}}%</li>
+				<li>Instrumentalness: {{track.instrumentalness}}%</li>
+				<li>Liveness: {{track.liveness}}%</li>
+				<li>Speechiness: {{track.speechiness}}%</li>
+			</ul>
+		</div>
+		{% endfor %}
+	</div>
+{% endif %}
+</div>
+{% endblock content %}
