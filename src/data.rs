@@ -3,6 +3,7 @@ use diesel::mysql::MysqlConnection;
 use diesel::prelude::*;
 use dotenvy::dotenv;
 use std::env;
+use rand::Rng;
 use rand::distributions::{Distribution,Uniform};
 
 // Helper function for calculating left boundary of SQL queries
@@ -73,6 +74,20 @@ pub fn get_top_ten(limit: Option<i64>) -> Vec<models::Track> {
 
     Track
         .order(streams.desc())
+        .limit(lim)
+        .select(models::Track::as_select())
+        .load(conn)
+        .expect("Error loading tracks")
+}
+
+pub fn get_random(limit: Option<i64>) -> Vec<models::Track> {
+    use crate::schema::Track::dsl::*;
+    let lim = limit.unwrap_or(25);
+    let conn = &mut get_connection();
+    let num = rand::thread_rng().gen_range(0..954);
+
+    Track
+        .filter(ID.gt(num))
         .limit(lim)
         .select(models::Track::as_select())
         .load(conn)

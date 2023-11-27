@@ -16,14 +16,13 @@
     Try reloading the page to see the top 10 songs.
 	</p>
 	{% else %}
-	<h2>Top Songs</h2>
+	<h2>Random Playlist</h2>
 	<div>
 		{% for track in tracks %}
 		<div>
 			<h3>{{track.track_name}}</h3>
 			<h4>by {{track.artist_name}}</h4>
 			<ul>
-				<li>Streams: {{track.streams}}</li>
 				<li>Danceability: {{track.danceability}}%</li>
 				<li>Valence: {{track.valence}}%</li>
 				<li>Energy: {{track.energy}}%</li>

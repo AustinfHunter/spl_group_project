@@ -32,3 +32,9 @@ pub struct ResultListTemplate<'a>{
 pub struct TopTenTemplate<'a>{
     pub tracks: &'a Vec<Track>,
 }
+
+#[derive(Template)]
+#[template(path = "random.html")]
+pub struct RandomTemplate<'a>{
+    pub tracks: &'a Vec<Track>,
+}
